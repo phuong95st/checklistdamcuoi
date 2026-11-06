@@ -1,0 +1,264 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Checklist đám cưới</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
+<style>
+/* Layout: một cột hẹp, các giai đoạn theo tuần xếp dọc, tiến độ ghim ở đầu trang */
+:root {
+  --bg: #F3F4F5;
+  --surface: #FFFFFF;
+  --fg: #1B1D1F;
+  --muted: #646A70;
+  --line: #DADDE0;
+  --accent: #A3202B;
+  --accent-soft: #F6E4E5;
+  --done: #2F7D5B;
+  --font-display: "Bricolage Grotesque", "Be Vietnam Pro", system-ui, sans-serif;
+  --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141618; --surface: #1D2023; --fg: #ECEDEE; --muted: #9CA2A8; --line: #2C3034;
+    --accent: #E8737D; --accent-soft: #34201F; --done: #62C096; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141618; --surface: #1D2023; --fg: #ECEDEE; --muted: #9CA2A8; --line: #2C3034;
+  --accent: #E8737D; --accent-soft: #34201F; --done: #62C096; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-block: 20px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 30px; line-height: 1.15; }
+.sub { color: var(--muted); margin: 6px 0 0; }
+.top { display: flex; flex-direction: column; gap: 14px; }
+.progress { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.count { font-family: var(--font-display); font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.count small { font-family: var(--font-body); font-size: 13px; font-weight: 400; color: var(--muted); }
+.bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
+.tools { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.status { font-size: 12.5px; color: var(--muted); min-width: 0; }
+.toggle { font: inherit; font-size: 13px; color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.toggle[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.toggle:focus-visible, .item input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.phase { display: flex; flex-direction: column; gap: 8px; }
+.phase-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; padding: 0 2px; }
+.phase-head h2 { font-size: 18px; }
+.range { font-size: 12.5px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; border-top: 1px solid var(--line); cursor: pointer; }
+.item:first-child { border-top: 0; }
+.item input { appearance: none; -webkit-appearance: none; flex: none; width: 20px; height: 20px; margin: 2px 0 0; border: 1.5px solid var(--muted); border-radius: 5px; background: transparent; cursor: pointer; display: grid; place-content: center; }
+.item input::after { content: ""; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.item input:checked { background: var(--done); border-color: var(--done); }
+.item input:checked::after { opacity: 1; }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.text { overflow-wrap: anywhere; }
+.chip { align-self: flex-start; font-size: 11.5px; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 6px; }
+.item.done .text { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+.item.done .chip { opacity: .6; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Checklist đám cưới</h1>
+      <p class="sub">Ăn hỏi ngày 19/12, cưới ngày 20/12. Còn khoảng 6 tuần tính từ 4/11, các mốc xếp ngược từ hai ngày này.</p>
+    </div>
+    <div class="progress">
+      <div class="progress-row">
+        <div class="count"><span id="n-done">0</span> / <span id="n-all">0</span> <small>việc đã xong</small></div>
+        <div class="count"><span id="pct">0</span>%</div>
+      </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="fill"></i></div>
+      <div class="tools">
+        <span class="status" id="status">Đang tải…</span>
+        <button class="toggle" id="hide-done" type="button" aria-pressed="false">Ẩn việc đã xong</button>
+      </div>
+    </div>
+  </header>
+  <main id="phases" class="wrap" style="gap:24px"></main>
+  <p class="note">Mẹo: đặt cọc nhà hàng, ekip chụp quay và trang điểm trước, vì cuối năm là mùa cưới nên lịch kín rất nhanh.</p>
+</div>
+
+<script>
+var PHASES = [
+  { id: "p1", title: "Chốt nền tảng", range: "4–10/11", items: [
+    ["a1", "Thống nhất ngân sách tổng và khoản chi của từng bên gia đình", "Cả hai + gia đình"],
+    ["a2", "Chốt số khách mời mỗi bên và số bàn dự kiến", "Cả hai + gia đình"],
+    ["a3", "Xem giờ lành cho ngày ăn hỏi 19/12 (đoàn nhà trai sang, nhận lễ) và ngày cưới 20/12 (lễ gia tiên, đón dâu, tiệc)", "Gia đình"],
+    ["a4", "Chốt địa điểm cho ngày ăn hỏi và tiệc cưới, đặt cọc (hoặc thuê rạp, đầu bếp nếu tổ chức tại nhà)", "Cả hai"],
+    ["a5", "Lập bảng theo dõi chi phí: hạng mục, tiền cọc, người phụ trách, hạn thanh toán", "Cả hai"]
+  ]},
+  { id: "p2", title: "Đặt dịch vụ", range: "11–17/11", items: [
+    ["b1", "Đặt ekip chụp ảnh, quay phim cho cả ngày ăn hỏi (19/12) và ngày cưới (20/12)", "Cả hai"],
+    ["b2", "Đặt trang điểm và làm tóc cô dâu cho cả hai ngày, hẹn lịch thử trước", "Dâu"],
+    ["b3", "Đặt MC, âm thanh, ban nhạc (nếu cần) cho ngày cưới và MC dẫn lễ ăn hỏi", "Cả hai"],
+    ["b4", "Đặt xe hoa và xe đưa đón người thân cho cả hai ngày", "Rể"],
+    ["b5", "Đặt hoa cưới, trang trí cổng và sân khấu", "Cả hai"],
+    ["b6", "Chụp ảnh cưới (nếu chưa chụp): chốt studio, lịch chụp, chọn ảnh in album và ảnh treo", "Cả hai"]
+  ]},
+  { id: "p3", title: "Thiệp, trang phục, nhẫn", range: "18–30/11", items: [
+    ["c1", "Hoàn thiện danh sách khách: tên, cách xưng hô, địa chỉ hoặc số điện thoại", "Cả hai"],
+    ["c2", "Chốt mẫu thiệp giấy và đặt in", "Cả hai"],
+    ["c3", "Làm thiệp mời online, gửi cho khách ở xa", "Cả hai"],
+    ["c4", "Chọn và may trang phục hai ngày: áo dài ăn hỏi, váy cưới, vest, áo dài cho hai bên gia đình (kịp thử và sửa)", "Cả hai"],
+    ["c5", "Mua nhẫn cưới và trang sức", "Cả hai"],
+    ["c6", "Mời phù dâu, phù rể và người bê tráp, báo trước lịch tập trung", "Cả hai"]
+  ]},
+  { id: "p4", title: "Chuẩn bị chi tiết", range: "1–10/12", items: [
+    ["d1", "Phát thiệp giấy cho khách, nhắc riêng người lớn tuổi", "Cả hai"],
+    ["d2", "Giấy tờ: xác nhận tình trạng hôn nhân, khám sức khỏe nếu địa phương yêu cầu, đăng ký kết hôn", "Cả hai"],
+    ["d3", "Thử trang điểm và thử lại trang phục lần cuối", "Dâu"],
+    ["d4", "Chốt thực đơn, kịch bản chương trình và danh sách nhạc với nhà hàng và MC", "Cả hai"],
+    ["d5", "Lập danh sách mâm quả, tráp và đặt mua lễ vật (trầu cau, rượu, bánh, trà, trái cây)", "Nhà trai"],
+    ["d6", "Chuẩn bị bàn thờ gia tiên, nơi tiếp đón đoàn nhà trai, quà lại quả cho ngày ăn hỏi", "Nhà gái"],
+    ["d7", "Mua quà cảm ơn cho phù dâu, phù rể và người giúp việc", "Cả hai"],
+    ["d8", "Đi thử lộ trình giữa hai nhà (khoảng 2–3 km), tính giờ xuất phát để kịp giờ lành và chốt chỗ đỗ xe cho đoàn", "Nhà trai"]
+  ]},
+  { id: "p5", title: "Tuần cuối", range: "11–18/12", items: [
+    ["e1", "Gọi xác nhận lần cuối: nhà hàng, ekip, xe, hoa (giờ, địa điểm, số khách)", "Cả hai"],
+    ["e2", "Chốt số khách xác nhận và sơ đồ bàn", "Cả hai"],
+    ["e3", "Phân công người thân: đón khách, giữ phong bì, điều phối, giữ nhẫn và giấy tờ", "Gia đình"],
+    ["e4", "Xếp lễ vật vào mâm quả, tráp và kiểm đếm đủ số lượng", "Nhà trai"],
+    ["e5", "Chuẩn bị tiền mặt lẻ, phong bì cảm ơn, quà lưu niệm cho khách", "Cả hai"],
+    ["e6", "Gói đồ ngày cưới: giấy tờ, nhẫn, trang sức, giày, đồ trang điểm, đồ thay", "Cả hai"]
+  ]},
+  { id: "p6", title: "Ngày ăn hỏi", range: "19/12", items: [
+    ["g1", "Nhà trai: đoàn bê tráp đúng giờ lành, đủ người, mang đủ giấy tờ và lễ vật", "Nhà trai"],
+    ["g2", "Nhà gái: đón đoàn, sắp bàn thờ gia tiên, trà nước, người tiếp khách", "Nhà gái"],
+    ["g3", "Làm lễ trao nhận tráp, nhà gái lại quả cho nhà trai", "Gia đình"],
+    ["g4", "Chụp ảnh, quay phim lễ và chốt người giữ nhẫn, phong bì", "Cả hai"]
+  ]},
+  { id: "p7", title: "Ngày cưới và sau cưới", range: "20/12 trở đi", items: [
+    ["h1", "Đón dâu, lễ gia tiên, tiệc theo kịch bản và giờ lành", "Cả hai"],
+    ["f1", "Giao người giữ phong bì và quà mừng sau tiệc", "Gia đình"],
+    ["f2", "Thanh toán phần còn lại cho nhà hàng, ekip, xe, hoa", "Cả hai"],
+    ["f3", "Gửi lời cảm ơn khách mời", "Cả hai"],
+    ["f4", "Nhận ảnh, video và duyệt bản chỉnh sửa cuối", "Cả hai"],
+    ["f5", "Hoàn tất đăng ký kết hôn nếu chưa làm", "Cả hai"]
+  ]}
+];
+
+var done = {};
+var hideDone = false;
+var boxes = {};
+var rows = {};
+var total = 0;
+var LS_KEY = "checklist-dam-cuoi-v1";
+
+function setStatus(t) { document.getElementById("status").textContent = t; }
+
+function loadLocal() {
+  try { var v = JSON.parse(localStorage.getItem(LS_KEY) || "null"); if (v && typeof v === "object") done = v; } catch (e) {}
+}
+function saveLocal() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(done)); } catch (e) {}
+}
+
+function build() {
+  var host = document.getElementById("phases");
+  PHASES.forEach(function (ph) {
+    var sec = document.createElement("section");
+    sec.className = "phase";
+    var head = document.createElement("div");
+    head.className = "phase-head";
+    var h = document.createElement("h2"); h.textContent = ph.title;
+    var r = document.createElement("span"); r.className = "range"; r.textContent = ph.range;
+    head.appendChild(h); head.appendChild(r);
+    var list = document.createElement("div");
+    list.className = "list";
+    ph.items.forEach(function (it) {
+      total++;
+      var label = document.createElement("label");
+      label.className = "item";
+      var cb = document.createElement("input");
+      cb.type = "checkbox"; cb.id = "chk-" + it[0];
+      var body = document.createElement("span"); body.className = "body";
+      var tx = document.createElement("span"); tx.className = "text"; tx.textContent = it[1];
+      var chip = document.createElement("span"); chip.className = "chip"; chip.textContent = it[2];
+      body.appendChild(tx); body.appendChild(chip);
+      label.appendChild(cb); label.appendChild(body);
+      list.appendChild(label);
+      boxes[it[0]] = cb; rows[it[0]] = label;
+      cb.addEventListener("change", function () {
+        if (cb.checked) done[it[0]] = true; else delete done[it[0]];
+        sync(); saveLocal(); flush();
+      });
+    });
+    sec.appendChild(head); sec.appendChild(list);
+    host.appendChild(sec);
+  });
+  document.getElementById("n-all").textContent = total;
+  document.getElementById("hide-done").addEventListener("click", function () {
+    hideDone = !hideDone;
+    this.setAttribute("aria-pressed", hideDone ? "true" : "false");
+    sync();
+  });
+}
+
+function sync() {
+  var n = 0;
+  Object.keys(boxes).forEach(function (id) {
+    var on = !!done[id];
+    if (on) n++;
+    boxes[id].checked = on;
+    rows[id].classList.toggle("done", on);
+    rows[id].hidden = hideDone && on;
+  });
+  var pct = total ? Math.round(n * 100 / total) : 0;
+  document.getElementById("n-done").textContent = n;
+  document.getElementById("pct").textContent = pct;
+  document.getElementById("fill").style.width = pct + "%";
+  document.getElementById("bar").setAttribute("aria-valuenow", pct);
+  document.querySelectorAll(".phase").forEach(function (s) {
+    s.hidden = hideDone && !s.querySelector(".item:not([hidden])");
+  });
+}
+
+var dbDoc = null, writing = false, pending = false;
+async function flush() {
+  if (!dbDoc) return;
+  if (writing) { pending = true; return; }
+  writing = true;
+  try { await dbDoc.set({ done: done }); }
+  catch (e) { setStatus("Chưa đồng bộ được, thay đổi vẫn lưu trên thiết bị này."); }
+  writing = false;
+  if (pending) { pending = false; flush(); }
+}
+
+async function connect() {
+  var db = null;
+  try { db = window.claude ? await window.claude.use("db") : null; } catch (e) { db = null; }
+  if (!db) { setStatus("Lưu trên thiết bị này."); return; }
+  dbDoc = db.doc("checklist/state");
+  var timer = setTimeout(function () { setStatus("Chưa kết nối được, thay đổi lưu trên thiết bị này."); }, 10000);
+  dbDoc.onSnapshot(function (snap) {
+    if (!snap.metadata.fromCache) { clearTimeout(timer); setStatus("Đã đồng bộ, ai mở trang này cũng thấy cùng tiến độ."); }
+    if (snap.exists) {
+      var d = snap.data() || {};
+      done = d.done && typeof d.done === "object" ? Object.assign({}, d.done) : {};
+      saveLocal();
+    }
+    sync();
+  }, function () { clearTimeout(timer); setStatus("Chưa đồng bộ được, thay đổi vẫn lưu trên thiết bị này."); });
+}
+
+loadLocal();
+build();
+sync();
+setStatus("Lưu trên thiết bị này.");
+connect();
+</script>
+
+</body></html>
